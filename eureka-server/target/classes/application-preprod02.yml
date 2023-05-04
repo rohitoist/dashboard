@@ -1,0 +1,20 @@
+eureka:
+  instance:
+    hostname: preprod
+    # hostname: localhost - SPP 25.2.2022 changed tp preprod
+    # hostname: preprods.dashboard.ap.bps.uk.atos.net
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    service-url:
+    # note that this is the OTHER Eureka instance. If more than one Eureka list all of them
+    # here seperated by a , such as: http://eureka1,http://eureka2 
+      # defaultZone: http://preprodser.dashboard.ap.bps.uk.atos.net:8761/eureka/
+      # defaultZone: http://localhost:8761/eureka/
+      # additionalZones: http://10.43.216.138:8761/eureka/
+      # SPP/PKB - Set to the other eureka server
+      defaultZone: http://10.43.216.138:8761/eureka/
+
+atos:
+  logstash:
+    url: 10.43.192.208:5000

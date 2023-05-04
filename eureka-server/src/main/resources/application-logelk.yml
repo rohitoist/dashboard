@@ -1,0 +1,12 @@
+# Changes that affect the logelk profile are also in logback-spring.xml
+management:
+  metrics:
+    export:
+      elastic:
+        enabled: false
+  endpoints:
+    enabled-by-default: true
+    web:
+      exposure:
+        include:
+        - '*'
