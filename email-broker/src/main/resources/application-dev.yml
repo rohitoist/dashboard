@@ -1,0 +1,18 @@
+spring:
+  artemis:
+    host: localhost
+    mode: native
+    port: 61616
+    user: admin
+    password: admin
+    receive-timeout: 10
+  mail:
+    host: localhost
+    port: 1025
+    properties:
+      mail:
+        smtp:
+          auth: false
+atos:
+  mailsend:
+    throwexceptions: true

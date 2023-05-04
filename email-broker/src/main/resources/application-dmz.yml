@@ -1,0 +1,13 @@
+server:
+  port: 80
+spring:
+  mail:
+    host: 10.97.211.147
+    port: 25
+    properties:
+      mail:
+        smtp:
+          auth: false
+atos:
+  mailsend:
+    throwexceptions: true

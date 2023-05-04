@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+	<springProperty scope="context" name="log.file.name" source="log.file.name" defaultValue="email-broker"/>
+	<springProperty scope="context" name="log.file.path" source="log.file.path"  defaultValue="/var/log/emailbroker" />
+	
+	<springProfile name="dev"> 	
+		<appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender"> 
+	       <encoder>
+	            <Pattern>%X{correlationId} - %m%n</Pattern>
+	       </encoder> 
+		</appender>
+	
+	    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+	        <encoder>
+	            <pattern>%d{dd-MM-yyyy HH:mm:ss.SSS} %magenta([%thread]) %highlight(%-5level) %logger{36}.%M - %msg%n</pattern>
+	        </encoder>
+	    </appender>
+	</springProfile>   
+
+     <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+     	<file>${log.file.path}/${log.file.name}.log</file>
+      <encoder>
+            <pattern>%d{dd-MM-yyyy HH:mm:ss.SSS} %magenta([%thread]) %highlight(%-5level) %logger{36}.%M - %msg%n</pattern>
+        </encoder>
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <fileNamePattern>${log.file.path}/${log.file.name}.%d{yyyy-MM-dd}.%i.log</fileNamePattern>
+			<maxFileSize>10MB</maxFileSize>
+			<maxHistory>7</maxHistory>
+			<totalSizeCap>100MB</totalSizeCap>				
+        </rollingPolicy>
+     </appender>    
+    
+    
+    <root level="info">
+        <appender-ref ref="FILE" />    
+        <springProfile name="dev">
+         	<appender-ref ref="STDOUT" />
+        </springProfile>
+    </root>
+
+	<logger name="uk.co.aegon.broker" level="trace"/>
+	<logger name="uk.co.aegon.broker.controller.LoggerHandlerInterceptor" level="trace"/>
+<!-- 
+	<logger name="uk.co.aegon.broker" level="trace">
+		<springProfile name="dev">
+    		<appender-ref ref="CONSOLE" />
+    	</springProfile>
+    	<appender-ref ref="FILE" />    
+	</logger>
+
+	<logger name="uk.co.aegon.broker.controller.LoggerHandlerInterceptor" level="trace">
+   		<appender-ref ref="FILE" />    
+		<springProfile name="dev">
+     		<appender-ref ref="CONSOLE" />
+     	</springProfile>
+	</logger>    
+ -->        
+</configuration>
